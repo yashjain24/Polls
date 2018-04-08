@@ -13,12 +13,12 @@ class IndexView(generic.ListView):
 		return Question.objects.order_by('-pub_date')[:5]
 
 
-class detail(generic.DetailView):
+class DetailView(generic.DetailView):
 	model = Question
-	template_name = 'polls/DetailView'
+	template_name = 'polls/detail.html'
 
 
-class results(generic.DetailView):
+class ResultsView(generic.DetailView):
 	model = Question
 	template_name = 'polls/results.html'
 
@@ -33,6 +33,6 @@ def vote(request, question_id):
 			'error_message': "You didn't select a choice.",
 		})
 	else :
-		selected_choice.votes +=1
+		selected_choice.votes += 1
 		selected_choice.save()
 		return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
